@@ -1,0 +1,3 @@
+name: benchmark_logger.dart
+dependencies:
+  args: any
