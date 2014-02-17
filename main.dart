@@ -9,12 +9,12 @@ main(List<String> args) {
   var result = parser.parse(args);
 
   var config = new Config(getEndpointUrl(result, parser.getUsage()));
-  stdin.transform(UTF8.decoder).listen((data) { post(data, config); });
+  stdin.transform(UTF8.decoder).listen((data) => post(data, config));
 }
 
 String getEndpointUrl(ArgResults result, String usageMessage) {
   var url = result[ENDPOINT_OPTION];
-  if( url == null || url.isEmpty ) {
+  if (url == null || url.isEmpty) {
     if (Platform.environment[ENV_ENDPOINT] == null || Platform.environment[ENV_ENDPOINT].isEmpty) {
       print("HTTP endpoint URL must be provided either using flag or ${ENV_ENDPOINT} environment variable");
       print(usageMessage);
@@ -35,9 +35,9 @@ post(String data, Config config) {
     request.write(score);
     return request.close();
   };
-  var handleResponse = (HttpClientResponse resp ) {
+  var handleResponse = (HttpClientResponse resp) {
     resp.transform(UTF8.decoder)
-    .listen((body) => print("${resp.statusCode} - ${body}") )
+    .listen((body) => print("${resp.statusCode} - ${body}"))
     .onDone(() => client.close());
   };
   client.openUrl("POST", Uri.parse("${config.url}/${module}/${name}.json"))
