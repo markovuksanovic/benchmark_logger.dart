@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'lib/config.dart';
 
+// TODO: check environment dev or release
+
 main(List<String> args) {
   var parser = new ArgParser()..addOption(ENDPOINT_OPTION, abbr: ENDPOINT_OPTION_ABBR, help: ENDPOINT_OPTION_HELP);
   var result = parser.parse(args);
@@ -41,6 +43,6 @@ post(String data, Config config) {
     .listen((body) => print("${resp.statusCode} - ${body}"))
     .onDone(() => client.close());
   };
-  client.openUrl("POST", Uri.parse("${config.url}/${context}/${module}/${name}.json"))
+  client.openUrl("POST", Uri.parse("${config.url}/${config.channel}/${context}/${module}/${name}.json"))
       .then(handleRequest).then(handleResponse);
 }
