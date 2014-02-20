@@ -1,3 +1,3 @@
 #!/bin/bash
-echo $0
-dart $(dirname $0)/main.dart <<< $1
+echo $(dirname $0)/main.dart -e $1 <<< $2
+dart $(dirname $0)/main.dart -e $1 <<< $2
